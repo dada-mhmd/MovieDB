@@ -17,7 +17,7 @@ app.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}/`);
 });
 
-app.get('/test', (req, res) => res.send({status:200, message:"ok"}))
+app.get('/test', (req, res) => res.send({status:200, message:"ok"})) // digitalocean saved my life.
 app.get('/time', (req, res) => {
     const time = new Date()
     const timeString = `${time.getHours()}:${time.getMinutes()}`
@@ -27,3 +27,36 @@ app.get('/time', (req, res) => {
     }
     res.status(200).send(result)
   });
+
+ 
+  app.get('/hello', function(req, res) {
+    res.send({ status: 200, message: "Hello" });
+});
+
+app.get('/hello/:id', (req, res) =>  {
+    res.send(req.params.id) })
+
+    app.get('/search', (req, res) => {
+        const search = req.query.s;
+    
+        if (typeof search != 'undefined') { // stackoverflow :D
+    
+            const response = {
+                status: 200,
+                message: "ok",
+                data: search
+            };
+    
+            res.send(response);
+        } else {
+            const response = {
+                status: 500,
+                error: true,
+                message: "you have to provide a search"
+            };
+    
+    
+            res.status(500);
+            res.send(response);
+        }
+    });
