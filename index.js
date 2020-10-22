@@ -117,3 +117,19 @@ app.get('/hello/:id', (req, res) =>  {
             data: movies1
         });
     });
+
+    //step 7
+
+    app.get("/movies/read/id/:id", (req, res) => {
+        let i = req.params.id;
+        if (i <= movies.length) {
+            res.send({ status: 200, data: movies[i] });
+     } 
+        else {
+            res.send({
+                status: 404,
+                error: true,
+                message: 'the movie  ' + i + ' does not exist'
+            });
+        }
+     });
