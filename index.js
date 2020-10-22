@@ -133,3 +133,26 @@ app.get('/hello/:id', (req, res) =>  {
             });
         }
      });
+
+     //step 8
+
+     app.get('/movies/add', (req, res) => {
+        let name = req.query.title
+        let year = req.query.year
+        let x = year.toString().length
+        if (name == "" || year == "" || x !=4 || isNaN(year)){res.status(403).send('you cannot create a movie without providing a title and a year')}
+        else 
+        {
+            if(req.query.rating == "" || typeof req.query.rating === "undefined"){
+                movie = {title: req.query.title, 
+                    year: req.query.year, 
+                    rating: 4}}
+            else{
+                movie = {title: req.query.title,
+                     year: req.query.year,
+                      rating: req.query.rating}
+            }
+        }
+        movies.push(movie)
+        res.status(200).send(movies)
+    });
