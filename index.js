@@ -156,3 +156,20 @@ app.get('/hello/:id', (req, res) =>  {
         movies.push(movie)
         res.status(200).send(movies)
     });
+
+    // delete
+
+    app.delete('/movies/delete', (req, res) => {
+        res.status(200).send("delete")
+    });
+    
+    app.delete('/movies/delete/:id', (req, res) => {
+        if (req.query.id <= 0 || req.params.id > movies.length)
+        {res.status(404).send('the movie ' + req.params.id + ' does not exist')}
+        else 
+        {
+            movies.splice(req.params.id -1, 1) // stackoverflow.
+            res.send(movies)
+        }
+    });
+    
